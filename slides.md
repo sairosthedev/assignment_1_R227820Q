@@ -1,11 +1,15 @@
 ---
-theme: seriph
+theme: dracula
 title: Data Pre-processing Major Tasks
 class: text-center
 drawings:
   persist: false
 transition: slide-left
 mdc: true
+fonts:
+  sans: 'Lato'
+  serif: 'Lato'
+  mono: 'Fira Code'
 ---
 
 # Data Pre-processing: Major Tasks
@@ -18,106 +22,208 @@ Data pre-processing is the foundation for effective data analysis and mining. It
 <strong>Macdonald Sairos</strong> &nbsp;|&nbsp; <strong>Reg Number:</strong> R227820Q
 </div>
 
-<div style="margin-top: 2.5em;">
-<strong>Major Tasks:</strong><br>
-<span style="display:inline-block; margin:0.5em 0;">Data Cleaning &nbsp;|&nbsp; Data Integration &nbsp;|&nbsp; Data Reduction &nbsp;|&nbsp; Data Transformation &nbsp;|&nbsp; Data Discretization</span>
-</div>
-
 ---
 
 # What is Data Pre-processing?
 
-- Data pre-processing is a crucial step in data mining and machine learning.
-- It involves transforming raw data into a clean and usable format.
-- Ensures data quality, consistency, and reliability for analysis.
+Data pre-processing is a crucial step in data mining and machine learning. It involves transforming raw data into a clean and usable format, ensuring data quality, consistency, and reliability for analysis. The main tasks are Data Cleaning, Data Integration, Data Reduction, Data Transformation, and Data Discretization.
 
 ---
 
 # a. Data Cleaning
 
-- Addresses incomplete, noisy, or inconsistent data ("dirty" data).
-- Key tasks:
-  - Filling in missing values (e.g., ignore tuple, fill manually, use mean, or most probable value)
-  - Identifying and handling outliers
-  - Smoothing noisy data (e.g., binning, regression, clustering)
-  - Resolving inconsistencies (e.g., naming conventions, coding errors)
-- Methods for missing data: ignore, fill with constant, mean, or infer value
-- Smoothing: binning, regression, clustering, concept hierarchies
-- Inconsistencies: manual correction, automated routines, or during integration
-- Outlier detection: statistical, distance, density, or deviation-based
+<div class="grid grid-cols-2 gap-4">
+<div>
+Data cleaning addresses incomplete, noisy, or inconsistent data by systematically identifying and resolving quality issues. It ensures the reliability of data for analysis and decision-making.
+<ul>
+<li>Fill missing values (mean, constant, inference)</li>
+<li>Detect and handle outliers</li>
+<li>Smooth noisy data (binning, regression)</li>
+<li>Correct inconsistencies</li>
+</ul>
+</div>
+<div>
+<strong>Why it matters:</strong>
+<ul>
+<li>Improves data quality</li>
+<li>Reduces errors in analysis</li>
+<li>Essential for both OLAP and data mining</li>
+</ul>
+</div>
+</div>
+
+---
+
+# Data Cleaning Example (Python)
+
+```python
+import pandas as pd
+# Fill missing values with the mean
+cleaned = df.fillna(df.mean())
+# Remove outliers using z-score
+from scipy import stats
+df = df[(np.abs(stats.zscore(df)) < 3).all(axis=1)]
+```
 
 ---
 
 # b. Data Integration
 
-- Combines data from multiple sources (databases, files, cubes) into a unified view
-- Required for data warehousing, OLAP, and data mining
-- Issues:
-  - Schema integration and object matching (entity identification)
-  - Redundancy (same attribute, different names)
-  - Data value conflicts (different representations/scales)
-- Solutions:
-  - Careful integration reduces redundancies and inconsistencies
-  - Use of global schema, mapping, and correlation analysis
-- Goal: Provide consistent, integrated data for quality analysis
+<div class="grid grid-cols-2 gap-4">
+<div>
+Data integration combines data from multiple sources into a unified, consistent view. This is essential for data warehousing and mining.
+<ul>
+<li>Schema integration and object matching</li>
+<li>Redundancy detection and removal</li>
+<li>Resolve data value conflicts</li>
+</ul>
+</div>
+<div>
+<strong>Key points:</strong>
+<ul>
+<li>Careful attribute mapping</li>
+<li>Correlation analysis for redundancy</li>
+<li>Improves consistency and quality</li>
+</ul>
+</div>
+</div>
 
 ---
 
 # c. Data Reduction
 
-- Reduces data volume while maintaining analytical integrity
-- Strategies:
-  - Data cube aggregation (summarize data at multiple levels)
-  - Attribute subset selection (feature selection, dimensionality reduction)
-  - Dimensionality reduction (e.g., PCA)
-  - Numerosity reduction (parametric: models; non-parametric: histograms, clustering, sampling)
-  - Discretization and concept hierarchy generation
-- Benefits: faster mining, less storage, easier visualization
+<div class="grid grid-cols-2 gap-4">
+<div>
+Data reduction decreases the volume of data while maintaining its analytical integrity, enabling faster processing and easier visualization.
+<ul>
+<li>Aggregation (data cubes)</li>
+<li>Attribute/feature selection</li>
+<li>Dimensionality reduction (PCA)</li>
+<li>Numerosity reduction (sampling, clustering)</li>
+</ul>
+</div>
+<div>
+<strong>Benefits:</strong>
+<ul>
+<li>Speeds up mining</li>
+<li>Reduces storage costs</li>
+<li>Makes patterns easier to interpret</li>
+</ul>
+</div>
+</div>
 
 ---
 
 # d. Data Transformation
 
-- Converts/consolidates data into forms suitable for mining
-- Methods:
-  - Smoothing (remove noise: binning, regression, clustering)
-  - Aggregation (summarize data, e.g., daily to monthly totals)
-  - Generalization (replace raw data with higher-level concepts)
-  - Normalization (scale values: min-max, z-score, decimal scaling)
-  - Attribute construction (create new features from existing data)
-- Prepares data for analysis and improves mining results
+<div class="grid grid-cols-2 gap-4">
+<div>
+Data transformation converts data into forms suitable for mining, improving analysis quality and mining results.
+<ul>
+<li>Smoothing (removing noise)</li>
+<li>Aggregation (summarizing data)</li>
+<li>Generalization (concept hierarchies)</li>
+<li>Normalization (scaling values)</li>
+</ul>
+</div>
+<div>
+<strong>Why transform?</strong>
+<ul>
+<li>Prepares data for algorithms</li>
+<li>Improves comparability</li>
+<li>Enables multi-level analysis</li>
+</ul>
+</div>
+</div>
+
+---
+
+# Data Transformation Example (Python)
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+# Normalize data to [0, 1] range
+scaler = MinMaxScaler()
+df_scaled = scaler.fit_transform(df)
+```
 
 ---
 
 # e. Data Discretization
 
-- Converts continuous attributes into discrete intervals or categories
-- Reasons:
-  - Some algorithms require categorical data
-  - Reduces data size and complexity
-  - Facilitates concept hierarchy generation
-- Methods:
-  - Binning (equal-width, equal-depth)
-  - Histogram analysis
-  - Clustering
-  - Entropy-based discretization
-  - Segmentation by natural partitioning (e.g., 3-4-5 rule)
-- Closely related to concept hierarchy generation for numerical/categorical data
+<div class="grid grid-cols-2 gap-4">
+<div>
+Data discretization transforms continuous attributes into discrete intervals or categories, reducing complexity and enabling certain algorithms to function properly.
+<ul>
+<li>Binning (equal-width/depth)</li>
+<li>Histogram analysis</li>
+<li>Clustering-based methods</li>
+<li>Entropy-based partitioning</li>
+</ul>
+</div>
+<div>
+<strong>Advantages:</strong>
+<ul>
+<li>Supports categorical algorithms</li>
+<li>Simplifies interpretation</li>
+<li>Enables concept hierarchies</li>
+</ul>
+</div>
+</div>
+
+---
+
+# Real-World Examples
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+<strong>Healthcare:</strong>
+<ul>
+<li>Cleaning: Handling missing patient records</li>
+<li>Integration: Combining lab and clinical data</li>
+<li>Reduction: Selecting key biomarkers</li>
+</ul>
+<strong>Finance:</strong>
+<ul>
+<li>Cleaning: Removing duplicate transactions</li>
+<li>Transformation: Normalizing credit scores</li>
+</ul>
+</div>
+<div>
+<strong>Retail:</strong>
+<ul>
+<li>Integration: Merging online and in-store sales</li>
+<li>Discretization: Grouping customers by age range</li>
+</ul>
+<strong>IoT/Sensors:</strong>
+<ul>
+<li>Reduction: Aggregating sensor readings hourly</li>
+<li>Cleaning: Filtering out sensor noise</li>
+</ul>
+</div>
+</div>
 
 ---
 
 # Summary
 
-- Data pre-processing ensures data quality and usability
-- Major tasks:
-  - Data Cleaning: handle missing, noisy, inconsistent data
-  - Data Integration: unify data from multiple sources
-  - Data Reduction: reduce data size, keep essential info
-  - Data Transformation: convert data for analysis
-  - Data Discretization: turn continuous data into categories
-- Essential for effective data mining and machine learning
-
----
+<div class="grid grid-cols-2 gap-4">
+<div>
+Data pre-processing ensures data quality and usability through five major interconnected tasks, essential for effective data mining and machine learning.
+<ul>
+<li>Higher quality input data</li>
+<li>More reliable analysis results</li>
+<li>Efficient mining processes</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>Better pattern discovery</li>
+<li>Improved decision support</li>
+<li>Foundation for advanced analytics</li>
+</ul>
+</div>
+</div>
 
 
 
