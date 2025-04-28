@@ -26,7 +26,28 @@ Data pre-processing is the foundation for effective data analysis and mining. It
 
 # What is Data Pre-processing?
 
-Data pre-processing is a crucial step in data mining and machine learning. It involves transforming raw data into a clean and usable format, ensuring data quality, consistency, and reliability for analysis. The main tasks are Data Cleaning, Data Integration, Data Reduction, Data Transformation, and Data Discretization.
+Data pre-processing is a crucial step in data mining and machine learning. It involves transforming raw data into a clean and usable format, ensuring data quality, consistency, and reliability for analysis. 
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+<strong>Definition:</strong>
+<ul>
+<li>Prepares raw, messy, or incomplete data for analysis.</li>
+<li>Removes errors, inconsistencies, and redundancies.</li>
+<li>Transforms data into a structured and standardized format.</li>
+</ul>
+</div>
+<div>
+<strong>Why is it important?</strong>
+<ul>
+<li>Ensures high-quality input for data mining and machine learning models.</li>
+<li>Improves accuracy, efficiency, and interpretability of results.</li>
+<li>Reduces bias and prevents misleading conclusions.</li>
+</ul>
+</div>
+</div>
+
+The main tasks are Data Cleaning, Data Integration, Data Reduction, Data Transformation, and Data Discretization. Each task addresses specific challenges in preparing data for effective analysis and decision-making.
 
 ---
 
@@ -148,17 +169,6 @@ Data transformation converts data into formats suitable for analysis and mining.
 
 ---
 
-# Data Transformation Example (Python)
-
-```python
-from sklearn.preprocessing import MinMaxScaler
-# Normalize data to [0, 1] range
-scaler = MinMaxScaler()
-df_scaled = scaler.fit_transform(df)
-```
-
----
-
 # Data Pre-processing Code Examples (Python)
 
 <div class="grid grid-cols-2 gap-4">
@@ -186,8 +196,17 @@ reduced = pca.fit_transform(df)
 
 ```python
 import pandas as pd
-# Merge sales and customer data on 'customer_id'
-merged = pd.merge(sales_df, customer_df, on='customer_id', how='inner')
+# Merge sales and customer data using a common key
+merged = pd.merge(
+    sales_df,           # Sales data DataFrame
+    customer_df,        # Customer data DataFrame
+    left_on='customer_id',
+    right_on='customer_id',
+    how='inner'         # Only include matching records
+)
+# Result:
+# merged DataFrame with unified customer and
+# sales information for all matching records
 ```
 </div>
 </div>
